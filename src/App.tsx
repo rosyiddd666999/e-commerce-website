@@ -1,33 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import axios from './config/axios.ts'
+import { useEffect, useState } from 'react'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [data, setData] = useState<string>('Loading...')
+  const [error, setError] = useState<string>('')
+
+  useEffect(() => {
+    const testConnection = async () => {
+      try {
+        const response = await axios.get('/products')
+        setData(JSON.stringify(response.data, null, 2))
+        console.log('Connection success:', response.data)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (err: any) {
+        setError(err.response?.data?.message || err.message)
+        console.error('Connection error:', err)
+      }
+    }
+
+    testConnection()
+  }, [])
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1>Test Connection</h1>
+      {error ? (
+        <p style={{color: 'red'}}>Error: {error}</p>
+      ) : (
+        <pre style={{color: 'green', textAlign: 'left'}}>{data}</pre>
+      )}
     </>
   )
 }
