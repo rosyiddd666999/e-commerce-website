@@ -1,37 +1,28 @@
-import './App.css'
-import axios from './config/axios.ts'
-import { useEffect, useState } from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect } from "react";
+import axiosInstance from "./api/axiosConfig";
+import TestApi from "./pages/TestApi";
 
 function App() {
-  const [data, setData] = useState<string>('Loading...')
-  const [error, setError] = useState<string>('')
-
   useEffect(() => {
+    // Test koneksi
     const testConnection = async () => {
       try {
-        const response = await axios.get('/products')
-        setData(JSON.stringify(response.data, null, 2))
-        console.log('Connection success:', response.data)
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (err: any) {
-        setError(err.response?.data?.message || err.message)
-        console.error('Connection error:', err)
+        console.log("Testing API connection...");
+        const response = await axiosInstance.get("/api/products");
+        console.log("API Response:", response.data);
+      } catch (error: any) {
+        console.error("API Error:", error.response || error);
       }
-    }
+    };
 
-    testConnection()
-  }, [])
+    testConnection();
+  }, []);
 
   return (
-    <>
-      <h1>Test Connection</h1>
-      {error ? (
-        <p style={{color: 'red'}}>Error: {error}</p>
-      ) : (
-        <pre style={{color: 'green', textAlign: 'left'}}>{data}</pre>
-      )}
-    </>
-  )
+    <div className="App">
+      <TestApi />
+    </div>
+  );
 }
-
-export default App
+export default App;
