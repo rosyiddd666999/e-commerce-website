@@ -16,24 +16,19 @@ export const API_ENDPOINTS = {
   PRODUCTS: {
     BASE: "/products",
     BY_ID: (id: number) => `/products/${id}`,
-    UPDATE_PRODUCT: (id: number) => `/products/${id}`,
-    DELETE_PRODUCT: (id: number) => `/products/${id}`,
   },
 
   // Category endpoints
   CATEGORIES: {
     BASE: "/categories",
     BY_ID: (id: number) => `/categories/${id}`,
-    UPDATE_CATEGORY: (id: number) => `/categories/${id}`,
-    REMOVE_CATEGORY: (id: number) => `/categories/${id}`,
   },
 
   // Cart endpoints
   CART: {
     BASE: "/cart",
     ADD_ITEM: "/cart/add",
-    UPDATE_ITEM: (id: number) => `/cart/${id}`,
-    REMOVE_ITEM: (id: number) => `/cart/${id}`,
+    BY_ID: (id: number) => `/cart/${id}`,
     CLEAR: "/cart/clear",
     CHECKOUT: (cartId: number) => `/cart/${cartId}/checkout`,
   },
