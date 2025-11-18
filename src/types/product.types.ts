@@ -5,24 +5,18 @@
 export interface Product {
   id: number;
   title: string;
+  slug: string;
   description: string;
+  quantity: number;
+  sold: number;
   price: number;
   price_after_discount?: number;
-  quantity: number;
   image_cover: string;
   images?: string[];
   colors?: string[];
   category_id: number;
   ratings_average?: number;
   ratings_quantity?: number;
-  created_at: string;
-  updated_at: string;
-}
-
-export interface Category {
-  id: number;
-  name: string;
-  description?: string;
   created_at: string;
   updated_at: string;
 }
